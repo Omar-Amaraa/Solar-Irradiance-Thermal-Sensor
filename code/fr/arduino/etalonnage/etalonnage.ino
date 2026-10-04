@@ -35,7 +35,7 @@ void loop() {
   float Ul= (Ul11/n_steps)*sensor_voltage; // on convertit en tension
 
   int Uref12 = analogRead(A2);
-  int Uref11 = Uref11>>1;
+  int Uref11 = Uref12 >> 1; // corrigé : Uref11 était lu avant d'être initialisé (Uref = 0 dans les CSV)
   float Uref = (Uref11/n_steps)*sensor_voltage;
 
   float tempC = sensor.readTempC();
