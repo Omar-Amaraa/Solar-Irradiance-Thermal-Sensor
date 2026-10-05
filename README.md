@@ -237,7 +237,7 @@ The uncertainties on U<sub>fil</sub>, R and time were propagated with a **Monte 
 C_T = 378.48 \pm 5.37\ \text{J·kg}^{-1}\text{·K}^{-1}\quad(1.3\ \%)
 ```
 
-This is very close to the textbook value for **brass (377 J·kg⁻¹·K⁻¹)** and well inside the 3 % target ✅
+This is very close to the textbook value for **brass (377 J·kg⁻¹·K⁻¹)** and well inside the 3 % target 
 
 <p align="center">
   <img src="docs/images/heat_capacity_Ush_stability.png" width="520" alt="Shunt voltage over time during the heating experiment">
