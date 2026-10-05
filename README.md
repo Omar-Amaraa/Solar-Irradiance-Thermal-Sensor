@@ -15,7 +15,7 @@ MINUTO measures the solar irradiance reaching the ground **without a photovoltai
 | Heat capacity of the block, C<sub>T</sub> | ±3 % | **378.48 ± 5.37 J·kg⁻¹·K⁻¹** (1.3 %) |
 | Solar irradiance | < 10 % uncertainty | **650 ± 31 W·m⁻²** and **887 ± 45 W·m⁻²** (≈ 5 %) |
 
-📄 **Full reports:** [English](docs/reports/MINUTO_Final_Report_EN.pdf) · [Français](docs/reports/MINUTO_Rapport_Final_FR.pdf)
+ **Full reports:** [English](docs/reports/MINUTO_Final_Report_EN.pdf) · [Français](docs/reports/MINUTO_Rapport_Final_FR.pdf)
 
 ---
 
