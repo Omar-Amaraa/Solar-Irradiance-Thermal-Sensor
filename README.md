@@ -82,15 +82,15 @@ The French and English folders contain the same programs:
 
 The sensor is treated as a black body. Its heat balance is
 
-$$
+```math
 m\,C_T\,\frac{dT}{dt} = -\sigma S_0\,(T^4 - T_{ext}^4) - h S_0\,(T - T_{ext}) + F_0(t)\,S_e
-$$
+```
 
-where $S_e = S_0\cos\theta$ is the surface facing the sun. If we know the block's heat capacity $C_T$ and its losses, then **measuring $T(t)$ precisely is enough to recover the solar flux $F_0(t)$**. So the project has three stages:
+where $`S_e = S_0\cos\theta`$ is the surface facing the sun. If we know the block's heat capacity $`C_T`$ and its losses, then **measuring $`T(t)`$ precisely is enough to recover the solar flux $`F_0(t)`$**. So the project has three stages:
 
 1. Build and **calibrate** a thermometer that can resolve a few hundredths of a degree.
-2. Measure the **heat capacity $C_T$** of the brass block with a known electrical heating power.
-3. Expose the block to the sun and **invert the model** to get $F_0$.
+2. Measure the **heat capacity $`C_T`$** of the brass block with a known electrical heating power.
+3. Expose the block to the sun and **invert the model** to get $`F_0`$.
 
 ---
 
@@ -120,8 +120,8 @@ An **NTC thermistor** sits in a **Wheatstone bridge**. The bridge outputs a volt
 
 - A plain voltage divider cannot reach 0.03 °C with an 11-bit reading, so the bridge output has to be amplified.
 - The analog inputs accept at most 4.7 V, and the op-amp saturates at **3.70 V**. We chose a gain of **≈ 4.5** so that Ug stays between 0 and 3.70 V.
-- The thermistor voltage *rises* as the temperature *drops*. The op-amp input is $U_{ref} - U_{th}$, so $U_{ref}$ was set to the thermistor voltage at **2.30 °C**. That makes 2.30 °C the bottom of the range, which beats the required T<sub>min</sub> ≤ 5 °C.
-- **Stable reference.** During some measurements, $U_{ref}$ fluctuated in ways that made no sense and corrupted the acquisitions. In the final version, $U_{ref}$ comes straight from the Arduino's DAC instead of the supply rail:
+- The thermistor voltage *rises* as the temperature *drops*. The op-amp input is $`U_{ref} - U_{th}`$, so $`U_{ref}`$ was set to the thermistor voltage at **2.30 °C**. That makes 2.30 °C the bottom of the range, which beats the required T<sub>min</sub> ≤ 5 °C.
+- **Stable reference.** During some measurements, $`U_{ref}`$ fluctuated in ways that made no sense and corrupted the acquisitions. In the final version, $`U_{ref}`$ comes straight from the Arduino's DAC instead of the supply rail:
 
   ```cpp
   analogWriteResolution(12);
@@ -134,7 +134,7 @@ An **NTC thermistor** sits in a **Wheatstone bridge**. The bridge outputs a volt
 
 ## 2. Calibration (étalonnage)
 
-The circuit outputs a voltage $U_g$, not a temperature. Calibration finds the law linking the two, by comparing our thermometer with a **reference probe, the TMP117** (accuracy ±0.1 °C).
+The circuit outputs a voltage $`U_g`$, not a temperature. Calibration finds the law linking the two, by comparing our thermometer with a **reference probe, the TMP117** (accuracy ±0.1 °C).
 
 ### Protocol
 
@@ -154,23 +154,23 @@ The circuit outputs a voltage $U_g$, not a temperature. Calibration finds the la
 </table>
 
 4. **Clean.** We removed the points that belong to the sudden **jumps in Ug**, because they do not come from a real temperature change.
-5. **Fit with Monte Carlo.** We fit a straight line $U_g = a\,T + b$. To propagate the uncertainties, the fit is repeated **n = 1000 times**, and each repetition adds random noise to every point:
-   - on T: $u(T) = 0.1$ °C (TMP117 accuracy)
-   - on Ug: $u(U_g) = \dfrac{V_{ref}}{N_q} = \dfrac{4.86}{2047} \approx 2.37$ mV (one 11-bit ADC step)
+5. **Fit with Monte Carlo.** We fit a straight line $`U_g = a\,T + b`$. To propagate the uncertainties, the fit is repeated **n = 1000 times**, and each repetition adds random noise to every point:
+   - on T: $`u(T) = 0.1`$ °C (TMP117 accuracy)
+   - on Ug: $`u(U_g) = \dfrac{V_{ref}}{N_q} = \dfrac{4.86}{2047} \approx 2.37`$ mV (one 11-bit ADC step)
 
    The mean and standard deviation of the 1000 values of a and b give the coefficients and their uncertainties.
 
 ### Result
 
-$$
+```math
 a = (0.1257 \pm 0.0001)\ \text{V·°C}^{-1} \qquad b = (-0.2890 \pm 0.0017)\ \text{V}
-$$
+```
 
 so a reading is converted to a temperature with
 
-$$
+```math
 T = \frac{U_g - b}{a}
-$$
+```
 
 <table>
   <tr>
@@ -203,9 +203,9 @@ python code/en/python/plot_csv.py data/02_calibration/mesures0.csv
 
 The block's heat capacity comes from **Joule heating**. A heating wire inside the cube carries a current set by a 5 V supply. A shunt resistor R gives the current, so the heating power is
 
-$$
+```math
 P = U_{fil}\cdot I = \frac{U_{fil}\cdot U_{SH}}{R}
-$$
+```
 
 <table>
   <tr>
@@ -227,15 +227,15 @@ $$
 
 The temperature follows
 
-$$
+```math
 T(t) = T_{ext} + \frac{P}{\lambda_{eff}}\left(1 - e^{-\frac{\lambda_{eff}}{m C_T}t}\right)
-$$
+```
 
 The uncertainties on U<sub>fil</sub>, R and time were propagated with a **Monte Carlo simulation of 100 000 draws**:
 
-$$
+```math
 C_T = 378.48 \pm 5.37\ \text{J·kg}^{-1}\text{·K}^{-1}\quad(1.3\ \%)
-$$
+```
 
 This is very close to the textbook value for **brass (377 J·kg⁻¹·K⁻¹)** and well inside the 3 % target ✅
 
@@ -250,9 +250,9 @@ This is very close to the textbook value for **brass (377 J·kg⁻¹·K⁻¹)** 
 
 From the cooling (relaxation) phase we first measured the effective thermal conductance of the insulated system:
 
-$$
+```math
 \lambda_{eff} = (38.98 \pm 3.41)\times 10^{-3}\ \text{W·K}^{-1}
-$$
+```
 
 **Outdoor protocol**
 
